@@ -30,6 +30,18 @@ namespace IoTDeviceFan.ViewModels
 		{
 			IsRunning = !IsRunning;
 		}
+
+		public void SaveSettings(string connectionString, string deviceId)
+		{
+			Properties.Settings.Default.ConnectionString = connectionString;
+			Properties.Settings.Default.DeviceId = deviceId;
+			Properties.Settings.Default.Save();
+		}
+		public void LoadSettings()
+		{
+			string connectionString = Properties.Settings.Default.ConnectionString;
+			string deviceId = Properties.Settings.Default.DeviceId;
+		}
 		protected void OnPropertyChanged(string propertyName)
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

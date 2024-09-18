@@ -44,8 +44,6 @@ namespace IoTDeviceFan
 			{
 				sb.Storyboard.Stop();
 			}
-
-
 		}
 		private void ExitButton_Click(object sender, RoutedEventArgs e)
 		{
@@ -53,5 +51,7 @@ namespace IoTDeviceFan
 		}
 
 		
+
+
 	}
 }
