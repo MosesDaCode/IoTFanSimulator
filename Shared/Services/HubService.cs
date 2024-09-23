@@ -3,12 +3,12 @@ using System.Text;
 
 namespace Shared.Services
 {
-    public class IoTHubService
+    public class HubService
     {
         
         private DeviceClient _deviceClient;
 
-        public IoTHubService(string connectionString)
+        public HubService(string connectionString)
         {
             _deviceClient = DeviceClient.CreateFromConnectionString(connectionString, TransportType.Mqtt);
         }

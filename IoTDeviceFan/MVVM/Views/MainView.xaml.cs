@@ -1,5 +1,9 @@
 ﻿using IoTDeviceFan.MVVM.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -11,21 +15,26 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace IoTDeviceFan
+namespace IoTDeviceFan.MVVM.Views
 {
-    public partial class MainWindow : Window
-	{
-		public FanViewModel ViewModel {  get; set; }
-		public MainWindow()
+    public partial class MainView : UserControl
+    {
+        private MainView _mainWiew;
+        private SettingsView _settingsWiew;
+		public FanViewModel ViewModel { get; set; }
+		public MainView()
 		{
 			InitializeComponent();
 			ViewModel = new FanViewModel();
 			DataContext = ViewModel;
+
 		}
 
 		private void TopWindowBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
-			DragMove();
+			Window window = Window.GetWindow(this);
+			if (window != null)
+				window.DragMove();
 		}
 		private async void StartButton_Click(object sender, RoutedEventArgs e)
 		{
@@ -51,8 +60,10 @@ namespace IoTDeviceFan
 			Environment.Exit(0);
 		}
 
-		
-
-
+		private void SettingsButton_Click(object sender, RoutedEventArgs e)
+		{
+			var mainWindow = (MainWindow)Application.Current.MainWindow;
+			mainWindow.ShowSettingsView();
+		}
 	}
 }

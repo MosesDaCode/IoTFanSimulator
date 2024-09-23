@@ -1,4 +1,5 @@
-﻿using Shared.Services;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Shared.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace IoTDeviceFan.MVVM.ViewModels
 {
-    public class FanViewModel : INotifyPropertyChanged
+    public class FanViewModel : ObservableObject
     {
-        private readonly IoTHubService _hubService;
+        private readonly HubService _hubService;
         private bool _isRunning;
 
-        public FanViewModel() => _hubService = new IoTHubService("HostName=Moshe-iothub.azure-devices.net;DeviceId=3a1eced5-476b-4b26-bf25-6a7179f0ea02;SharedAccessKey=xjoIN3LXJWO7q1IV77WfKVKZwVMisufQcAIoTK8p0Xk=");
+        public FanViewModel() => _hubService = new HubService("HostName=Moshe-iothub.azure-devices.net;DeviceId=3a1eced5-476b-4b26-bf25-6a7179f0ea02;SharedAccessKey=xjoIN3LXJWO7q1IV77WfKVKZwVMisufQcAIoTK8p0Xk=");
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -36,17 +37,6 @@ namespace IoTDeviceFan.MVVM.ViewModels
             IsRunning = !IsRunning;
         }
 
-        public void SaveSettings(string connectionString, string deviceId)
-        {
-            Properties.Settings.Default.ConnectionString = connectionString;
-            Properties.Settings.Default.DeviceId = deviceId;
-            Properties.Settings.Default.Save();
-        }
-        public void LoadSettings()
-        {
-            string connectionString = Properties.Settings.Default.ConnectionString;
-            string deviceId = Properties.Settings.Default.DeviceId;
-        }
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
