@@ -1,0 +1,20 @@
+﻿<Window x:Class="IoTDeviceFan.MVVM.Views.SettingsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IoTDeviceFan.MVVM.Views"
+        mc:Ignorable="d"
+       Title="SettingsView" Height="300" Width="400">
+    <Grid>
+        <StackPanel Margin="20">
+            <TextBlock Text="Connection String:" />
+            <TextBox Text="{Binding ConnectionString, UpdateSourceTrigger=PropertyChanged}" Margin="0,10,0,20"/>
+
+            <TextBlock Text="Device ID:" />
+            <TextBox Text="{Binding DeviceId, UpdateSourceTrigger=PropertyChanged}" Margin="0,10,0,20"/>
+
+            <Button Content="Save" Command="{Binding SaveCommand}" Width="100" HorizontalAlignment="Right"/>
+        </StackPanel>
+    </Grid>
+</Window>

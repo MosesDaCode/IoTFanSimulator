@@ -1,4 +1,4 @@
-﻿using IoTDeviceFan.ViewModels;
+﻿using IoTDeviceFan.MVVM.ViewModels;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,10 +13,7 @@ using System.Windows.Shapes;
 
 namespace IoTDeviceFan
 {
-	/// <summary>
-	/// Interaction logic for MainWindow.xaml
-	/// </summary>
-	public partial class MainWindow : Window
+    public partial class MainWindow : Window
 	{
 		public FanViewModel ViewModel {  get; set; }
 		public MainWindow()
@@ -30,7 +27,7 @@ namespace IoTDeviceFan
 		{
 			DragMove();
 		}
-		private void StartButton_Click(object sender, RoutedEventArgs e)
+		private async void StartButton_Click(object sender, RoutedEventArgs e)
 		{
 			ViewModel.ToggleDevice();
 
@@ -44,6 +41,10 @@ namespace IoTDeviceFan
 			{
 				sb.Storyboard.Stop();
 			}
+
+			string message = ViewModel.IsRunning ? "{ \"status\": \"on\" }" : "{ \"status\": \"off\" }";
+
+			await ViewModel.SendStatusMessage(message);
 		}
 		private void ExitButton_Click(object sender, RoutedEventArgs e)
 		{
