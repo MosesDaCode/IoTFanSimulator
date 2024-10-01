@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:IoTControlCenter"
+             x:Class="IoTControlCenter.App">
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <Color x:Key="Dark">#000000</Color>
+            <Color x:Key="Light">#FFFFFF</Color>    
+
+            <Color x:Key="PageBackgroundColor">#16191F</Color>
+            <Color x:Key="PrimaryTextColor">#B5B6B8</Color>
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

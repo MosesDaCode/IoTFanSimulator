@@ -9,7 +9,7 @@
     
     
     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-        <!-- Använd en liknande layout som i MainWindow -->
+        
         <Border Background="#303236" CornerRadius="30">
             <Grid>
                 <Grid.RowDefinitions>
@@ -34,7 +34,6 @@
                     Click="ExitButton_Click" 
                     Margin="20 0" 
                     HorizontalAlignment="Right"/>
-                <!-- Titel för Settings-sidan -->
 
                 <StackPanel Grid.Row="2" Margin="20 50 20 50" >
                     <TextBlock Text="Settings" 
@@ -44,10 +43,8 @@
                            HorizontalAlignment="Center"/>
                 </StackPanel>
 
-                <!-- Inställningsformulär -->
                 <Grid Grid.Row="3" Margin="20">
                     <StackPanel>
-                        <!-- Connection String -->
                         <TextBlock Text="Connection String:" 
                                FontSize="18" 
                                FontFamily="{StaticResource poppins-regular}" 
@@ -60,7 +57,6 @@
                              Foreground="Black" 
                              BorderThickness="0"/>
 
-                        <!-- Device ID -->
                         <TextBlock Text="Device ID:" 
                                FontSize="18" 
                                FontFamily="{StaticResource poppins-regular}" 
@@ -73,7 +69,6 @@
                              Foreground="Black" 
                              BorderThickness="0"/>
 
-                        <!-- Spara-knapp -->
                         <Button Content="Save" 
                             Command="{Binding SaveCommand}" 
                             FontSize="18" 

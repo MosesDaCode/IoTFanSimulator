@@ -19,8 +19,6 @@ namespace IoTDeviceFan.MVVM.Views
 {
     public partial class MainView : UserControl
     {
-        private MainView _mainWiew;
-        private SettingsView _settingsWiew;
 		public FanViewModel ViewModel { get; set; }
 		public MainView()
 		{

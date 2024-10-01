@@ -14,7 +14,7 @@ namespace IoTDeviceFan.MVVM.ViewModels
 	{
 		private string? _connectionString;
 		private string? _deviceId;
-
+		 
 		public string ConnectionString
 		{
 			get => _connectionString;

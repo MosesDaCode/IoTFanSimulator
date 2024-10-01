@@ -1,0 +1,193 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+    --color-background: #16191F;
+    --color-nav-background: #0C0F13;
+    --color-device-background: #222629;
+    --color-device-footer-background: #26292F;
+    --color-text: #B5B6B8;
+    --color-headline: #B9BABC;
+    --color-border-gray: #E2E5F1;
+    --container-padding: 1rem;
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body, section, div, header, footer, main, aside, nav, blockquote, p, span {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    color: var(--color-text);
+    background-color: var(--color-background);
+}
+
+h1:focus {
+    outline: none;
+}
+
+.preloader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 64px;
+}
+
+.container {
+    width: 100%;
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+    background-color: var(--color-nav-background);
+    color: #414145;
+    font-size: 0.8rem;
+}
+
+    nav .active {
+        color: #B7B8BA;
+    }
+
+    nav a {
+        color: #414145;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.3rem;
+    }
+
+        nav a i {
+            font-size: 32px;
+        }
+
+    nav .container {
+        display: flex;
+        justify-content: space-between;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+.headline {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-headline);
+}
+
+.devices {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.device {
+    background: #222629;
+    color: #8C8D8F;
+    border-radius: 18px;
+    overflow: hidden;
+    font-size: 12px;
+    transition: all 0.4s ease-in-out;
+}
+
+    .device .body {
+        text-align: center;
+        padding-top: 1.2rem;
+        padding-bottom: 1.2rem;
+    }
+
+        .device .body i {
+            font-size: 2.5em;
+            margin-bottom: 1rem;
+        }
+
+        .device .body .state {
+            font-size: 0.8em;
+        }
+
+    .device footer {
+        text-align: center;
+        padding-top: 0.8rem;
+        padding-bottom: 0.8rem;
+        background-color: rgba(0, 0, 0, 0.15);
+    }
+
+    .device.active {
+        background: rgb(65,83,90);
+        background: linear-gradient(0deg, rgba(65,83,90,1) 0%, rgba(119,149,157,0.9) 67%, rgba(179,227,236,0.8) 100%);
+        transition: all 0.4s ease-in-out;
+        color: #ffffff;
+    }
+
+        .device.active footer {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+    transition: all 0.4s ease-in-out;
+}
+
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .switch .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(47, 51, 53, 0.8);
+        transition: .4s;
+    }
+
+        .switch .slider:before {
+            position: absolute;
+            content: "";
+            height: 24px;
+            width: 24px;
+            left: 4px;
+            bottom: 3px;
+            background-color: #5A5B5F;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.30);
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+    .switch input:checked + .slider {
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+        .switch input:checked + .slider:before {
+            transform: translateX(28px);
+            background-color: #FFFFFF;
+        }
+
+    .switch .slider.round {
+        border-radius: 34px;
+    }
