@@ -2,9 +2,9 @@
 {
 	public class DeviceSettings
 	{
-		public string deviceId { get; set; } = null!;
- 		public string? deviceName { get; set; }
-		public string? deviceType { get; set; }
+		public string DeviceId { get; set; } = null!;
+ 		public string? DeviceName { get; set; }
+		public string? DeviceType { get; set; }
 		public bool DeviceState { get; set; }
 
 		public string ConnectionString { get; set; } = null!;

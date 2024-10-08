@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using IoTControlCenter.ViewModels
 @using Shared.Models
+@using System.Diagnostics
 @inject HomeViewModel viewModel
  <div class="container">
      <h1 class="headline">DEVICES</h1>
@@ -10,16 +11,14 @@
         {
             foreach(var device in Devices)
             {
-                var icon = device.deviceType.ToLower() switch
+                var icon = device?.DeviceType?.ToLower() switch
                 {
                     "light" => "fa-regular fa-lightbulb",
                     _ => "fa-regular fa-microchip" 
                 };
 
 
-
-
-                <div id="@device.deviceId" class="device  @(device.DeviceState ? "active" : null)"> 
+                <div id="@device!.DeviceId" class="device  @(device.DeviceState ? "active" : null)"> 
                     <div class="body">
                         <i class="@icon"></i>
                         <div class="title">@device.DeviceState</div>
@@ -45,7 +44,7 @@
 
 
 @code{
-    private IEnumerable<DeviceSettings> Devices = [];
+    private IEnumerable<DeviceSettings> Devices = Enumerable.Empty<DeviceSettings>();
 
     protected override async Task OnInitializedAsync()
     {

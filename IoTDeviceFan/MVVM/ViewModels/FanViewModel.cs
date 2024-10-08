@@ -14,7 +14,7 @@ namespace IoTDeviceFan.MVVM.ViewModels
         private readonly HubService _hubService;
         private bool _isRunning;
 
-        public FanViewModel() => _hubService = new HubService("HostName=Moshe-iothub.azure-devices.net;DeviceId=3a1eced5-476b-4b26-bf25-6a7179f0ea02;SharedAccessKey=xjoIN3LXJWO7q1IV77WfKVKZwVMisufQcAIoTK8p0Xk=");
+        public FanViewModel() => _hubService = new HubService(AppConfig.ConnectionString);
 
         public event PropertyChangedEventHandler PropertyChanged;
 

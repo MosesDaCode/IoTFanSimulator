@@ -1,5 +1,6 @@
 ﻿using Shared.Handlers;
 using Shared.Models;
+using Shared.Services;
 
 namespace IoTControlCenter.ViewModels
 {
@@ -9,6 +10,7 @@ namespace IoTControlCenter.ViewModels
 
         public Timer? Timer { get; set; }
         public int TimeInterval { get; set; } = 4000;
+
         public HomeViewModel(IotHubHandler iotHub)
         {
             _iotHub = iotHub;
@@ -28,7 +30,7 @@ namespace IoTControlCenter.ViewModels
         public async Task SendDirectMethodAsync(DeviceSettings device)
         {
             var methodName = device.DeviceState ? "stop" : "start";
-            await _iotHub.SendDirectMethodAsync(device.deviceId, methodName);
+            await _iotHub.SendDirectMethodAsync(device.DeviceId, methodName);
         }
     }
 }

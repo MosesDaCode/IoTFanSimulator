@@ -1,4 +1,6 @@
-﻿namespace IoTControlCenter
+﻿using IoTControlCenter.ViewModels;
+
+namespace IoTControlCenter
 {
 	public partial class MainPage : ContentPage
 	{
