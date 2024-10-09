@@ -6,10 +6,12 @@ namespace Shared.Services
     public class HubService
     {
         
+        private AppConfig _appConfig;
         private DeviceClient _deviceClient;
 
         public HubService(string connectionString)
         {
+            connectionString = AppConfig.DeviceConnectionString;
             _deviceClient = DeviceClient.CreateFromConnectionString(connectionString, TransportType.Mqtt);
         }
 

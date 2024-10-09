@@ -12,39 +12,64 @@ public class IotHubHandler
 
     public IotHubHandler()
     {
-        var connectionString = AppConfig.ConnectionString;
+        var connectionString = AppConfig.HubConnectionString;
         _registry = RegistryManager.CreateFromConnectionString(connectionString);
         _serviceClient = ServiceClient.CreateFromConnectionString(connectionString);
     }
 
-     public async Task<IEnumerable<DeviceSettings>> GetDevicesAsync()
+    public async Task<IEnumerable<DeviceSettings>> GetDevicesAsync()
     {
-        var query = _registry!.CreateQuery("select * from devices");
+
         var devices = new List<DeviceSettings>();
-
-        foreach (var twin in await query.GetNextAsTwinAsync())
+        try
         {
-            var device = new DeviceSettings
-            {
-                DeviceId = twin.DeviceId,
-                DeviceName = twin.Properties.Reported["deviceName"]?.ToString() ?? "",
-                DeviceType = twin.Properties.Reported["deviceType"]?.ToString() ?? ""
-            };
+            var query = _registry!.CreateQuery("select * from devices");
 
-            bool.TryParse(twin.Properties.Reported["connectionState"].ToString(), out bool connectionState);
-            device.ConnectionState = connectionState;
 
-            if (device.ConnectionState)
+            foreach (var twin in await query.GetNextAsTwinAsync())
             {
-                bool.TryParse(twin.Properties.Reported["deviceState"].ToString(), out bool deviceState);
-                device.DeviceState = deviceState;
+                
+
+                var device = new DeviceSettings
+                {
+                    DeviceId = twin.DeviceId
+                };
+
+                try
+                {
+                    device.DeviceName = twin.Properties.Reported["deviceName"]?.ToString() ?? "";
+                }
+                catch (Exception ex) { }
+
+                try
+                {
+                    device.DeviceType = twin.Properties.Reported["deviceType"]?.ToString() ?? "";
+                }
+                catch (Exception ex) { }
+
+                try
+                {
+                    bool.TryParse(twin.Properties.Reported["connectionState"].ToString(), out bool connectionState);
+                    device.ConnectionState = connectionState;
+
+                    if (device.ConnectionState)
+                    {
+                        bool.TryParse(twin.Properties.Reported["deviceState"].ToString(), out bool deviceState);
+                        device.DeviceState = deviceState;
+                    }
+                    else
+                    {
+                        device.DeviceState = false;
+                    }
+                }
+                catch { }
+
+                devices.Add(device);
             }
-            else
-            {
-                device.DeviceState = false;
-            }
+        }
+        catch (Exception ex)
+        {
 
-            devices.Add(device);
         }
         return devices;
     }

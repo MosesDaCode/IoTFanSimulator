@@ -14,7 +14,7 @@ namespace IoTDeviceFan.MVVM.ViewModels
         private readonly HubService _hubService;
         private bool _isRunning;
 
-        public FanViewModel() => _hubService = new HubService(AppConfig.ConnectionString);
+        public FanViewModel() => _hubService = new HubService(AppConfig.DeviceConnectionString);
 
         public event PropertyChangedEventHandler PropertyChanged;
 
