@@ -51,7 +51,7 @@ namespace IoTDeviceFan.MVVM.Views
 
 			string message = ViewModel.IsRunning ? "{ \"status\": \"on\" }" : "{ \"status\": \"off\" }";
 
-			await ViewModel.SendStatusMessage(message);
+			await ViewModel.SendStatusMessageAsync(message);
 		}
 		private void ExitButton_Click(object sender, RoutedEventArgs e)
 		{

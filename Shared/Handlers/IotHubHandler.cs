@@ -12,9 +12,8 @@ public class IotHubHandler
 
     public IotHubHandler()
     {
-        var connectionString = AppConfig.HubConnectionString;
-        _registry = RegistryManager.CreateFromConnectionString(connectionString);
-        _serviceClient = ServiceClient.CreateFromConnectionString(connectionString);
+        _registry = RegistryManager.CreateFromConnectionString(AppConfig.HubConnectionString);
+        _serviceClient = ServiceClient.CreateFromConnectionString(AppConfig.HubConnectionString);
     }
 
     public async Task<IEnumerable<DeviceSettings>> GetDevicesAsync()

@@ -1,8 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Shared.Handlers;
+using Shared.Models;
 using Shared.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,10 +14,16 @@ namespace IoTDeviceFan.MVVM.ViewModels
 {
     public class FanViewModel : ObservableObject
     {
+
+        private readonly DeviceClientHandler _client;
         private readonly HubService _hubService;
         private bool _isRunning;
 
-        public FanViewModel() => _hubService = new HubService(AppConfig.DeviceConnectionString);
+        public FanViewModel()
+        {
+            _client = new DeviceClientHandler("DeviceId", "Fan", "Fan", AppConfig.DeviceConnectionString, true, true);
+            _hubService = new HubService(AppConfig.DeviceConnectionString);
+        } 
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -32,16 +41,30 @@ namespace IoTDeviceFan.MVVM.ViewModels
         public string ButtonText => IsRunning ? "STOP" : "START";
 
 
-        public void ToggleDevice()
+        public async void ToggleDevice()
         {
             IsRunning = !IsRunning;
+            _client?.InitializeAsync();
+            var result = await _client!.UpdateDeviceTwinPropertiesAsync();
+
+            if (result.Succeeded)
+            {
+                Debug.WriteLine(result.Message);
+            }
+            else
+            {
+                Debug.WriteLine(result.Message);
+            }
+            string message = IsRunning ? "{ \"status\": \"on\" }" : "{ \"status\": \"off\" }";
+
+            await SendStatusMessageAsync(message);
         }
 
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public async Task SendStatusMessage(string message)
+        public async Task SendStatusMessageAsync(string message)
         {
             await _hubService.SendMessageAsync(message);
         }

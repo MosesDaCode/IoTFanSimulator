@@ -43,7 +43,7 @@ namespace IoTDeviceFan.MVVM.ViewModels
 
 			if (!string.IsNullOrEmpty(DeviceId))
 			{
-                _client = new DeviceClientHandler(DeviceId, "Fan", "Fan", AppConfig.HubConnectionString);
+                _client = new DeviceClientHandler(DeviceId, "Fan", "Fan", AppConfig.DeviceConnectionString, true, true);
             }
 			else
 			{

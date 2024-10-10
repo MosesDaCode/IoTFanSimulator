@@ -1,9 +1,11 @@
-﻿using DotNetty.Codecs.Mqtt.Packets;
+﻿using Azure;
+using DotNetty.Codecs.Mqtt.Packets;
 using Microsoft.Azure.Devices.Client;
 using Microsoft.Azure.Devices.Shared;
 using Newtonsoft.Json;
 using Shared.Models;
 using Shared.Services;
+using System.Diagnostics;
 using System.Text;
 
 namespace Shared.Handlers
@@ -13,20 +15,18 @@ namespace Shared.Handlers
         private readonly DeviceSettings _settings;
 		private DeviceClient? _client;
 
-        public DeviceClientHandler(string deviceId, string deviceName, string deviceType, string connectionString)
+        public DeviceClientHandler(string deviceId, string deviceName, string deviceType, string connectionString, bool connectionState, bool deviceState)
         {
             _settings = new DeviceSettings
             {
                 DeviceId = deviceId,
                 DeviceName = deviceName,
                 DeviceType = deviceType,
-                ConnectionString = connectionString
+                ConnectionString = connectionString,
+                ConnectionState = connectionState,
+                DeviceState = deviceState
+                
             };
-
-            //_settings = new DeviceSettings();
-            //_settings!.DeviceId = deviceId;
-            //_settings.DeviceName = deviceName;
-            //_settings.DeviceType = deviceType;
         }
 
         public async Task<ResultResponse> InitializeAsync()
