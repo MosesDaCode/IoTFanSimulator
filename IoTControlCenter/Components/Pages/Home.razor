@@ -26,7 +26,7 @@
                     </div>
                     <footer>
                         <label class="switch">
-                            <InputCheckbox @bind-Value="device.DeviceState" @onclick="() => viewModel.OnDeviceStateChanged(device)" disabled="@(device.ConnectionState == false)"/>
+                            <InputCheckbox @bind-Value="device.ConnectionState" @onclick=" () =>  viewModel.ToggleDeviceAsync(device)"/>
                             <span class="slider round"></span>
                         </label>
                     </footer>

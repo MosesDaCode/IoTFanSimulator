@@ -32,5 +32,29 @@ namespace IoTControlCenter.ViewModels
             var methodName = device.DeviceState ? "stop" : "start";
             await _iotHub.SendDirectMethodAsync(device.DeviceId, methodName);
         }
+
+        public async Task ToggleDeviceAsync(DeviceSettings device)
+        {
+
+            if (device.ConnectionState)
+            {
+                await _iotHub.SendDirectMethodAsync(device.DeviceId, "Disconnect");
+                device.DeviceState = false;
+            }
+            else
+            {
+                await _iotHub.SendDirectMethodAsync(device.DeviceId, "Connect");
+                device.ConnectionState = true;
+            }
+
+
+            //device.ConnectionState = !device.ConnectionState;
+
+            //var methodName = device.ConnectionState ? "Connect" : "Disconnect";
+
+            //await _iotHub.SendDirectMethodAsync(device.DeviceId, methodName);
+            //await GetDevicesAsync();
+
+        }
     }
 }

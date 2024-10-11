@@ -23,7 +23,17 @@ namespace IoTDeviceFan.MVVM.ViewModels
         {
             _client = new DeviceClientHandler("DeviceId", "Fan", "Fan", AppConfig.DeviceConnectionString, true, true);
             _hubService = new HubService(AppConfig.DeviceConnectionString);
-        } 
+            InitializeClientAsync();
+        }
+
+        private async void InitializeClientAsync()
+        {
+            var result = await _client.InitializeAsync();
+            if (result.Succeeded)
+                Debug.WriteLine("Device  connected successfully!");
+            else
+                Debug.WriteLine($"Failed to connect device: {result.Message}");
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -43,8 +53,7 @@ namespace IoTDeviceFan.MVVM.ViewModels
 
         public async void ToggleDevice()
         {
-            IsRunning = !IsRunning;
-            _client?.InitializeAsync();
+
             var result = await _client!.UpdateDeviceTwinPropertiesAsync();
 
             if (result.Succeeded)
@@ -55,6 +64,7 @@ namespace IoTDeviceFan.MVVM.ViewModels
             {
                 Debug.WriteLine(result.Message);
             }
+
             string message = IsRunning ? "{ \"status\": \"on\" }" : "{ \"status\": \"off\" }";
 
             await SendStatusMessageAsync(message);

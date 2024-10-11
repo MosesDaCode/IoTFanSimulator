@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Shared.Data;
 using Shared.Handlers;
 using Shared.Services;
 using System;
@@ -75,15 +76,19 @@ namespace IoTDeviceFan.MVVM.ViewModels
 
 		private void SaveSettings()
 		{
-			Properties.Settings.Default.ConnectionString = ConnectionString;
-			Properties.Settings.Default.DeviceId = DeviceId;
-			Properties.Settings.Default.Save();
+			var settings = new AppSettings
+			{
+				ConnectionString = ConnectionString,
+				DeviceId = DeviceId
+			};
+			DataManager.SaveSettings(settings);
 		}
 
 		public void LoadSettings()
 		{
-			ConnectionString = Properties.Settings.Default.ConnectionString ?? string.Empty;
-			DeviceId = Properties.Settings.Default.DeviceId ?? string.Empty;
+			var settings = DataManager.LoadSettings();
+			ConnectionString = settings.ConnectionString;
+			DeviceId = settings.DeviceId;
 		}
 	}
 }

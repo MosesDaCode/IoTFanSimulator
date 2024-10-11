@@ -171,5 +171,22 @@ namespace Shared.Handlers
             return response;
 
         }
+
+
+        public async Task<ResultResponse> ConnectAsync()
+        {
+            _settings.ConnectionState = true;
+            var result = await UpdateDeviceTwinDeviceStateAsync();
+            return result.Succeeded ? new ResultResponse { Succeeded = true, Message = "Device connected" }
+                                    : new ResultResponse { Succeeded = false, Message = "Failed to connect" };
+        }
+        
+        public async Task<ResultResponse> DisconnectAsync()
+        {
+            _settings.ConnectionState = false;
+            var result = await UpdateDeviceTwinDeviceStateAsync();
+            return result.Succeeded ? new ResultResponse { Succeeded = true, Message = "Device disconnected" }
+                                    : new ResultResponse { Succeeded = false, Message = "Failed to disconnect" };
+        }
     }
 }

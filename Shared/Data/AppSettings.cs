@@ -10,5 +10,6 @@ namespace Shared.Data
 	{
 		public string ConnectionString { get; set; }
 		public string DeviceId {  get; set; }
-	}
+        public string Email { get; set; }
+    }
 }
