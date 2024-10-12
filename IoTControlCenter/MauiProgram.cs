@@ -26,6 +26,7 @@ namespace IoTControlCenter
 #endif
 
 			builder.Services.AddTransient<HomeViewModel>();
+			builder.Services.AddTransient<SettingsViewModel>();
 			builder.Services.AddTransient<IotHubHandler>();
 
 
