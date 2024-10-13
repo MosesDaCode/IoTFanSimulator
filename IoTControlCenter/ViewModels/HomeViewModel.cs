@@ -1,4 +1,5 @@
-﻿using Shared.Handlers;
+﻿using Shared.Data;
+using Shared.Handlers;
 using Shared.Models;
 using Shared.Services;
 using System.Diagnostics;
@@ -56,17 +57,25 @@ namespace IoTControlCenter.ViewModels
 
             try
             {
-                await _iotHub.DeleteDeviceAsync(device.DeviceId);
+                var settings = DataManager.LoadSettings();
 
-                await _emailService.SendEmailAsync(device.Email, "Device Removed", $"The device {device.DeviceName} has been removed.");
+                if (!string.IsNullOrEmpty(settings.Email))
+                {
 
+                    await _iotHub.DeleteDeviceAsync(device.DeviceId);
+
+                    await _emailService.SendEmailAsync(settings.Email, "Device Removed", $"The device {device.DeviceName} has been removed.");
+                }
+                else
+                {
+                    Debug.WriteLine("Email address was not found in settings");
+                }
                 await GetDevicesAsync();
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
             }
-            
 
         }
     }
