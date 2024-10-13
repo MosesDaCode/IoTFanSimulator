@@ -1,19 +1,22 @@
 ﻿using Shared.Handlers;
 using Shared.Models;
 using Shared.Services;
+using System.Diagnostics;
 
 namespace IoTControlCenter.ViewModels
 {
     public class HomeViewModel
     {
         private readonly IotHubHandler _iotHub;
-
+        private readonly EmailService _emailService;
         public Timer? Timer { get; set; }
         public int TimeInterval { get; set; } = 4000;
 
-        public HomeViewModel(IotHubHandler iotHub)
+        public HomeViewModel(IotHubHandler iotHub, EmailService emailService)
         {
             _iotHub = iotHub;
+            _emailService = emailService;
+
         }
 
         public async Task<IEnumerable<DeviceSettings>> GetDevicesAsync()
@@ -46,14 +49,24 @@ namespace IoTControlCenter.ViewModels
                 await _iotHub.SendDirectMethodAsync(device.DeviceId, "Connect");
                 device.ConnectionState = true;
             }
+        }
 
+        public async Task DeleteDeviceAsync(DeviceSettings device)
+        {
 
-            //device.ConnectionState = !device.ConnectionState;
+            try
+            {
+                await _iotHub.DeleteDeviceAsync(device.DeviceId);
 
-            //var methodName = device.ConnectionState ? "Connect" : "Disconnect";
+                await _emailService.SendEmailAsync(device.Email, "Device Removed", $"The device {device.DeviceName} has been removed.");
 
-            //await _iotHub.SendDirectMethodAsync(device.DeviceId, methodName);
-            //await GetDevicesAsync();
+                await GetDevicesAsync();
+            }
+            catch (Exception ex) 
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            
 
         }
     }

@@ -9,6 +9,8 @@
 			
 		public string ConnectionString { get; set; } = null!;
 		public bool ConnectionState { get; set; }
+
+		public string? Email { get; set; }
 	}
 
 }

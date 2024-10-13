@@ -80,5 +80,11 @@ public class IotHubHandler
 
 
     }
+
+
+    public async Task DeleteDeviceAsync(string deviceId)
+    {
+        await _registry!.RemoveDeviceAsync(deviceId);
+    }
 }
 

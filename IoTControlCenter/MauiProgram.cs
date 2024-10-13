@@ -2,6 +2,7 @@
 using IoTControlCenter.ViewModels;
 using Microsoft.Extensions.Logging;
 using Shared.Handlers;
+using Shared.Services;
 
 namespace IoTControlCenter
 {
@@ -28,6 +29,7 @@ namespace IoTControlCenter
 			builder.Services.AddTransient<HomeViewModel>();
 			builder.Services.AddTransient<SettingsViewModel>();
 			builder.Services.AddTransient<IotHubHandler>();
+			builder.Services.AddTransient<EmailService>();
 
 
 

@@ -14,7 +14,7 @@
                 var icon = device?.DeviceType?.ToLower() switch
                 {
                     "light" => "fa-regular fa-lightbulb",
-                    _ => "fa-regular fa-microchip" 
+                    _ => "fa-regular fa-microchip"   
                 };
 
 
@@ -29,6 +29,8 @@
                             <InputCheckbox @bind-Value="device.ConnectionState" @onclick=" () =>  viewModel.ToggleDeviceAsync(device)"/>
                             <span class="slider round"></span>
                         </label>
+
+                        <button @onclick="() => viewModel.DeleteDeviceAsync(device)">Delete device</button>
                     </footer>
                 </div>
             }
@@ -56,5 +58,13 @@
     {
         Devices = await viewModel.GetDevicesAsync();
         await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task DeleteDevice(DeviceSettings device)
+    {
+        await viewModel.DeleteDeviceAsync(device);
+
+        Devices = await viewModel.GetDevicesAsync();
+        StateHasChanged();
     }
 }
